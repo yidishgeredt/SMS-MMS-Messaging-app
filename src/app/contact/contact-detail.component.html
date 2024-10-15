@@ -1,0 +1,18 @@
+<ActionBar [title]="contact?.name">
+  <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+</ActionBar>
+
+<ScrollView>
+  <StackLayout class="p-4">
+    <Label [text]="contact?.name" class="text-2xl font-bold mb-4"></Label>
+    <GridLayout rows="auto, auto, auto" columns="auto, *" class="mb-4">
+      <Label text="Phone:" class="font-bold" row="0" col="0"></Label>
+      <Label [text]="contact?.phoneNumber" row="0" col="1" (tap)="callContact()"></Label>
+      <Label text="Email:" class="font-bold" row="1" col="0"></Label>
+      <Label [text]="contact?.email" row="1" col="1" (tap)="emailContact()"></Label>
+      <Label text="Address:" class="font-bold" row="2" col="0"></Label>
+      <Label [text]="contact?.address" row="2" col="1" textWrap="true"></Label>
+    </GridLayout>
+    <Button text="Send Message" (tap)="sendMessage()" class="btn btn-primary"></Button>
+  </StackLayout>
+</ScrollView>

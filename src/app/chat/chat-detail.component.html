@@ -1,0 +1,32 @@
+<ActionBar [title]="chat?.contactName">
+  <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+  <ActionItem ios.position="right" android.position="actionBar" (tap)="toggleMute()">
+    <Label [text]="chat?.isMuted ? '&#xf6a9;' : '&#xf028;'" class="fas text-xl"></Label>
+  </ActionItem>
+  <ActionItem ios.position="right" android.position="actionBar" (tap)="changeBackground()">
+    <Label text="&#xf03e;" class="fas text-xl"></Label>
+  </ActionItem>
+</ActionBar>
+
+<GridLayout rows="*, auto">
+  <ListView [items]="messages" class="list-group" row="0" [style.backgroundImage]="chat?.backgroundImage ? 'url(' + chat.backgroundImage + ')' : ''">
+    <ng-template let-message="item">
+      <StackLayout [class]="message.isIncoming ? 'bg-gray-200 rounded-lg p-2 m-2 mr-16' : 'bg-blue-500 text-white rounded-lg p-2 m-2 ml-16'">
+        <Label *ngIf="message.type === 'text'" [text]="message.content" textWrap="true"></Label>
+        <Image *ngIf="message.type === 'image'" [src]="message.mediaUrl" stretch="aspectFit" height="200"></Image>
+        <GridLayout *ngIf="message.type === 'voice'" columns="auto, *" class="voice-message">
+          <Button text="&#xf04b;" class="fas" col="0" (tap)="playVoiceMessage(message.mediaUrl)"></Button>
+          <Progress col="1" [value]="audioProgress" maxValue="100"></Progress>
+        </GridLayout>
+        <Label [text]="message.timestamp | date:'shortTime'" class="text-xs text-right" [class.text-gray-500]="message.isIncoming" [class.text-blue-200]="!message.isIncoming"></Label>
+      </StackLayout>
+    </ng-template>
+  </ListView>
+
+  <GridLayout columns="auto, *, auto, auto" class="input-field" row="1">
+    <Button text="&#xf03e;" class="fas btn" (tap)="sendPhoto()" col="0"></Button>
+    <TextField [(ngModel)]="newMessage" hint="Type a message" returnKeyType="send" (returnPress)="sendMessage()" class="input" col="1"></TextField>
+    <Button text="&#xf130;" class="fas btn" (touch)="onMicButtonTouch($event)" col="2"></Button>
+    <Button text="Send" (tap)="sendMessage()" class="btn btn-primary" col="3"></Button>
+  </GridLayout>
+</GridLayout>

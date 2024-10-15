@@ -1,0 +1,18 @@
+<ActionBar title="Messages">
+  <ActionItem ios.position="right" android.position="actionBar">
+    <Label text="&#xf067;" class="fas text-2xl"></Label>
+  </ActionItem>
+</ActionBar>
+
+<ListView [items]="chats" class="list-group">
+  <ng-template let-chat="item">
+    <GridLayout columns="auto, *, auto" rows="auto, auto" class="list-group-item" [nsRouterLink]="['/chat', chat.id]" (longPress)="onItemLongPress(chat)">
+      <Label [text]="chat.contactName[0]" class="text-center text-white bg-blue-500 rounded-full w-12 h-12 leading-12 text-xl font-bold" row="0" rowSpan="2" col="0"></Label>
+      <Label [text]="chat.contactName" class="font-bold text-lg" row="0" col="1"></Label>
+      <Label [text]="chat.lastMessage" class="text-gray-500 text-sm" row="1" col="1"></Label>
+      <Label [text]="chat.timestamp | date:'shortTime'" class="text-xs text-gray-400" row="0" col="2"></Label>
+      <Label [text]="chat.unreadCount" *ngIf="chat.unreadCount > 0" class="bg-blue-500 text-white text-xs rounded-full w-5 h-5 text-center" row="1" col="2"></Label>
+      <Label [text]="chat.isMuted ? '&#xf6a9;' : '&#xf028;'" class="fas text-lg text-gray-500" row="0" col="2"></Label>
+    </GridLayout>
+  </ng-template>
+</ListView>

@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fas {
+  font-family: "Font Awesome 5 Free", "fa-solid-900";
+  font-weight: 900;
+}
+
+.input-field {
+  padding: 8;
+  background-color: #f0f0f0;
+}
+
+.input {
+  padding: 8;
+  background-color: white;
+  border-radius: 20;
+}
+
+.btn {
+  padding: 8;
+  border-radius: 20;
+  margin-left: 8;
+}
+
+.btn-primary {
+  background-color: #007aff;
+  color: white;
+}
